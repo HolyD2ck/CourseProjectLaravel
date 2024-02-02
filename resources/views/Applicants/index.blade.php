@@ -42,7 +42,7 @@
                     <button class="btn btn-secondary">
                             <a style="color: inherit; text-decoration: none;" href="{{ url("Applicants/edit/{$applicant->id}") }}">Изменить</a>
                         </button>
-                        <form method="post" action="{{ url("/Applicants/delete/{$applicant->id}") }}">
+                        <form method="post" action="{{ route('applicants.destroy', $applicant->id) }}">
                                 @csrf
                                 @method('DELETE')
                             <br>

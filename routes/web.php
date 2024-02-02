@@ -34,7 +34,7 @@ Route::get('/Applicants/create', function () {
 Route::get('/Applicants/index', [ApplicantsController::class, 'index']);
 Route::get('/Applicants/edit/{id}',[ApplicantsController::class, 'edit']); 
 Route::post('/Applicants/update/{id}',[ApplicantsController::class, 'update']);
-Route::delete('/Applicants/delete/{id}', [ApplicantsController::class, 'destroy']);
+Route::delete('/Applicant/delete/{id}', [ApplicantsController::class, 'destroy'])->name('applicants.destroy');
 Route::post('/Applicants/create', [ApplicantsController::class, 'create']);
 
 //CHECK ROUTS:

@@ -135,13 +135,22 @@ class ApplicantsController extends Controller
      */
     public function destroy($id)
     {
-        $applicant = Applicants::findOrFail($id);
-        $image_path=public_path();
-        $image = $image_path.$applicant->Фото;
-        if(file_exists($image)){
-            @unlink($image);
+        $applicant = Applicants::find($id);
+    
+        if (!$applicant) {
+            return redirect('/Applicants/index')->with('error', 'Соискатель не найден');
         }
-        $applicant->delete();
-        return redirect('/Applicants/index');
+    
+        $image_path = public_path();
+        $image = $image_path . $applicant->Фото;
+    
+        try {
+            $applicant->delete();
+            @unlink($image);
+        } catch (\Exception $e) {
+            return redirect('/Applicants/index')->with('error', 'Ошибка при удалении: ' . $e->getMessage());
+        }
+    
+        return redirect('/Applicants/index')->with('success', 'Соискатель успешно удален');
     }
 }
