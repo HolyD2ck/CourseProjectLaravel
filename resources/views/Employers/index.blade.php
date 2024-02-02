@@ -45,7 +45,7 @@
                         <br>
                         @csrf
                         @method('DELETE')
-                            <button class="btn btn-danger" onclick="deleteConfirm(event)">
+                            <button class="btn btn-danger" onclick="deleteConfirm(event, this.closest('form'))">
                                 <a style="color: inherit; text-decoration: none;">Удалить</a>
                             </button>
                         </form>
@@ -53,9 +53,8 @@
                 </tr>
             @endforeach
                 <script>
-                    window.deleteConfirm = function(e){
+                    window.deleteConfirm = function(e, form){
                         e.preventDefault();
-                        var form = e.target.form;
                         Swal.fire({
                             title: 'Вы уверены?',
                             text: 'Что хотите удалить запись?!',
