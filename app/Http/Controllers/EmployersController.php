@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employers;
-
+use Illuminate\Support\Facades\File;
 class EmployersController extends Controller
 {
     /**
@@ -52,8 +52,10 @@ class EmployersController extends Controller
             $employer->Вакансия = $request->Вакансия;
             $employer->Телефон = $request->Телефон;
             $employer->Email = $request->Email;
-            $employer->Фото = $file_name;
+            $employer->Фото = $file_name;    
             $employer->save();
+            //File::put((public_path('test/test.txt')),$employer);
+            //echo $employer;
         
             return redirect('/Employers/index');
         }   
@@ -130,13 +132,22 @@ class EmployersController extends Controller
      */
     public function destroy($id)
     {
-        $employer = Employers::findOrFail($id);
-        $image_path=public_path();
-        $image = $image_path.$employer->Фото;
-        if(file_exists($image)){
-            @unlink($image);
+        $employer = Employers::find($id);
+    
+        if (!$employer) {
+            return redirect('/Employers/index')->with('error', 'Работодатель не найден');
         }
-        $employer->delete();
-        return redirect('/Employers/index');
+    
+        $image_path = public_path();
+        $image = $image_path . $employer->Фото;
+    
+        try {
+            $employer->delete();
+            @unlink($image);
+        } catch (\Exception $e) {
+            return redirect('/Employers/index')->with('error', 'Ошибка при удалении: ' . $e->getMessage());
+        }
+    
+        return redirect('/Employers/index')->with('success', 'Работодатель успешно удален');
     }
 }

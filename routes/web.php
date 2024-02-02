@@ -23,7 +23,7 @@ Route::get('/Employers/create', function () {
 Route::get('/Employers/index', [EmployersController::class, 'index']);
 Route::get('/Employers/edit/{id}',[EmployersController::class, 'edit']); 
 Route::post('/Employers/update/{id}',[EmployersController::class, 'update']);
-Route::delete('/Employers/delete/{id}', [EmployersController::class, 'destroy']);
+Route::delete('/Employers/delete/{id}', [EmployersController::class, 'destroy'])->name('employers.destroy');
 Route::post('/Employers/create', [EmployersController::class, 'create']);
 
 

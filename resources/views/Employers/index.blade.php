@@ -41,37 +41,37 @@
                         <button class="btn btn-secondary">
                             <a style="color: inherit; text-decoration: none;" href="{{ url("Employers/edit/{$employer->id}") }}">Изменить</a>
                         </button>
-                        <form method="post" action="{{ url("/Employers/delete/{$employer->id}") }}">
-                                @csrf
-                                @method('DELETE')
-                            <br>
+                        <form method="post" action="{{ route('employers.destroy', $employer->id) }}">
+                        <br>
+                        @csrf
+                        @method('DELETE')
                             <button class="btn btn-danger" onclick="deleteConfirm(event)">
-                                 <a style="color: inherit; text-decoration: none;">Удалить</a>
+                                <a style="color: inherit; text-decoration: none;">Удалить</a>
                             </button>
                         </form>
                     </td>
                 </tr>
             @endforeach
-                    <script>
-                        window.deleteConfirm = function(e){
-                            e.preventDefault();
-                            var form = e.target.form;
-                            Swal.fire({
-                                title: 'Вы уверены?',
-                                text: 'Что хотите удалить запись?!',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Да!',
-                                cancelButtonText: 'Нет!'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    form.submit();
-                                }
-                            });
-                        }
-                    </script>
+                <script>
+                    window.deleteConfirm = function(e){
+                        e.preventDefault();
+                        var form = e.target.form;
+                        Swal.fire({
+                            title: 'Вы уверены?',
+                            text: 'Что хотите удалить запись?!',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Да!',
+                            cancelButtonText: 'Нет!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    }
+                </script>
         </tbody>
     </table>
     @endif
