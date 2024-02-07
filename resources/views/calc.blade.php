@@ -16,13 +16,13 @@
         </div>
         <div class="mb-3">
             <label for="v" class="form-label">Объем</label>
-            <input type="text" readonly class="form-control" id="v" name="v" value="{{ $v }}" aria-describedby="volumeHelp">
-            <div id="volumeHelp" class="form-text">Здесь будет вычисленный объем.</div>
+            <input type="text" readonly class="form-control" id="v" name="v" value="{{  isset($v) ? $v : '' }}" aria-describedby="volumeHelp">
+            <div id="volumeHelp" class="form-text">Вычисленный объем</div>
         </div>
         <div class="mb-3">
             <label for="p" class="form-label">Площадь</label>
-            <input type="text" readonly class="form-control" id="p" name="p" value="{{ $p }}" aria-describedby="areaHelp">
-            <div id="areaHelp" class="form-text">Здесь будет вычисленная площадь.</div>
+            <input type="text" readonly class="form-control" id="p" name="p" value="{{  isset($p) ? $p : '' }}" aria-describedby="areaHelp">
+            <div id="areaHelp" class="form-text">Вычисленная площадь</div>
         </div>
         <button type="submit" class="btn btn-primary">Рассчитать</button>
     </form>
