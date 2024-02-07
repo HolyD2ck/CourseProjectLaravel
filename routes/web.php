@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployersController;
 use App\Http\Controllers\ApplicantsController;
+use App\Http\Controllers\CalcController;
 
 //HOME ROUTS:
 Route::get('/', function () {
@@ -36,6 +37,14 @@ Route::get('/Applicants/edit/{id}',[ApplicantsController::class, 'edit']);
 Route::post('/Applicants/update/{id}',[ApplicantsController::class, 'update']);
 Route::delete('/Applicant/delete/{id}', [ApplicantsController::class, 'destroy'])->name('applicants.destroy');
 Route::post('/Applicants/create', [ApplicantsController::class, 'create']);
+
+//CALC
+Route::get('/calc', function () {
+    return view('calc');
+});
+
+Route::post('/calc',[CalcController::class, 'result']);
+
 
 //CHECK ROUTS:
 Auth::routes();

@@ -42,6 +42,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/Applicants/index') }}">Соискатели</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/calc') }}">Калькулятор</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
