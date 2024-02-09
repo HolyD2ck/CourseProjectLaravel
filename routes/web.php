@@ -56,3 +56,15 @@ Route::get('/check-connection', function() {
         die("Не удалось подключиться к базе данных. Пожалуйста, проверьте свои настройки. Ошибка: " . $e->getMessage());
     }
 });
+//EXPORT ROUTS:
+Route::get('/Applicants/export', [ApplicantsController::class, 'export']);
+Route::get('/Applicants/export2', [ApplicantsController::class, 'export2']);
+
+Route::get('/Employers/export', [EmployersController::class, 'export']);
+Route::get('/Employers/export2', [EmployersController::class, 'export2']);
+
+Route::get('/Applicants/word', [ApplicantsController::class, 'word']);
+Route::get('/Applicants/word2', [ApplicantsController::class, 'word2']);
+
+Route::get('/Employers/word', [EmployersController::class, 'word']);
+Route::get('/Employers/word2', [EmployersController::class, 'word2']);

@@ -5,8 +5,20 @@
 @if ($employers == null)
     <p><em>Загрузка...</em></p>
 @else
-<button class="btn btn-success l">
+<button class="btn btn-secondary l">
     <a href="/Employers/create" style="color: inherit; text-decoration: none;">Внести Работодателя</a>
+</button>
+<button class="btn btn-success l">
+    <a href="/Employers/export" style="color: inherit; text-decoration: none;">Дамб В Excel</a>
+</button>
+<button class="btn btn-success l">
+    <a href="/Employers/export2" style="color: inherit; text-decoration: none;">Дамб В Excel Не Четный</a>
+</button>
+<button class="btn btn-primary l">
+    <a href="/Employers/word" style="color: inherit; text-decoration: none;">Дамб В Word</a>
+</button>
+<button class="btn btn-primary l">
+    <a href="/Employers/word2" style="color: inherit; text-decoration: none;">Дамб В Word Четный</a>
 </button>
 <hr>
     <br>

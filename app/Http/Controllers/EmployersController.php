@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Employers;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EmployersExport;
+use App\Exports\EmployersExport2;
+use \PhpOffice\PhpWord\IOFactory;
 class EmployersController extends Controller
 {
     /**
@@ -149,5 +153,63 @@ class EmployersController extends Controller
         }
     
         return redirect('/Employers/index')->with('success', 'Работодатель успешно удален');
+    }
+    public function export() 
+    {
+        return Excel::download(new EmployersExport, 'employers.xlsx');
+    }
+    public function export2() 
+    {
+        return Excel::download(new EmployersExport2, 'employers2.xlsx');
+    }
+    public function word()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+    
+        $section = $phpWord->addSection();
+        $table = $section->addTable();
+
+        $data = Employers::all();
+    
+        foreach($data as $row) {
+            $text = '';
+            $attributes = $row->getAttributes();
+            $attributes = collect($attributes)->except('Фото')->toArray();
+            foreach($attributes as $cell) {
+                $text .= $cell . ' ';
+            }
+            $section->addText(rtrim($text));
+        }
+        
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save('employers.docx');
+    
+        return response()->download(public_path('employers.docx'));
+    }
+    public function word2()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+    
+        $section = $phpWord->addSection();
+        $table = $section->addTable();
+
+        $data = Employers::all();
+    
+        foreach($data as $row) {
+            if ($row->id % 2 == 0) {
+            $text = '';
+            $attributes = $row->getAttributes();
+            $attributes = collect($attributes)->except('Фото')->toArray();
+            foreach($attributes as $cell) {
+                $text .= $cell . ' ';
+            }
+            $section->addText(rtrim($text));
+            }
+        }
+        
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save('employers.docx');
+    
+        return response()->download(public_path('employers.docx'));
     }
 }

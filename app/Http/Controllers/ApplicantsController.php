@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ApplicantsExport;
 use Illuminate\Http\Request;
 use App\Models\Applicants;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ApplicantsExport2;
+use \PhpOffice\PhpWord\IOFactory;
 class ApplicantsController extends Controller
 {
     /**
@@ -153,5 +156,59 @@ class ApplicantsController extends Controller
     
         return redirect('/Applicants/index')->with('success', 'Соискатель успешно удален');
     }
+    public function export() 
+    {
+        return Excel::download(new ApplicantsExport, 'applicants.xlsx');
+    }
+    public function export2() 
+    {
+        return Excel::download(new ApplicantsExport2, 'applicants2.xlsx');
+    }
+    public function word()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+    
+        $section = $phpWord->addSection();
 
+        $data = Applicants::all();
+    
+        foreach($data as $row) {
+            $text = '';
+            $attributes = $row->getAttributes();
+            $attributes = collect($attributes)->except('Фото')->toArray();
+            foreach($attributes as $cell) {
+                $text .= $cell . ' ';
+            }
+            $section->addText(rtrim($text));
+        }
+        
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save('applicants.docx');
+    
+        return response()->download(public_path('applicants.docx'));
+    }
+    public function word2()
+    {
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        $section = $phpWord->addSection();
+        $data = Applicants::all();
+
+        foreach($data as $row) {
+            if ($row->id % 2 == 0) {
+                $text = '';
+                $attributes = $row->getAttributes();
+                $attributes = collect($attributes)->except('Фото')->toArray();
+                foreach($attributes as $cell) {
+                    $text .= $cell . ' ';
+                }
+                $section->addText(rtrim($text));
+            }
+        }
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save('applicants2.docx');
+
+        return response()->download(public_path('applicants2.docx'));
+    }
 }
