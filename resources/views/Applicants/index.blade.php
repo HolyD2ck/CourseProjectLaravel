@@ -9,6 +9,12 @@
 <button class="btn btn-success l">
     <a href="/Applicants/create" style="color: inherit; text-decoration: none;">Внести Соискателя</a>
 </button>
+<button class="btn btn-success l">
+    <a href="/Applicants/excel" style="color: inherit; text-decoration: none;">Дамб В Excel</a>
+</button>
+<button class="btn btn-success l">
+    <a href="/Applicants/word" style="color: inherit; text-decoration: none;">Дамб В Word</a>
+</button>
 <hr>
     <br>
     <table class>

@@ -153,4 +153,5 @@ class ApplicantsController extends Controller
     
         return redirect('/Applicants/index')->with('success', 'Соискатель успешно удален');
     }
+
 }
